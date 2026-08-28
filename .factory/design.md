@@ -57,4 +57,6 @@ One generated hero illustration clarifies the core job: a portable cassette-shap
 
 **Generated asset:** `public/assets/transcript-pocket-hero.webp`, generated 2026-08-28 with the Param Factory Azure image deployment via `/opt/fleet/lib/gen-image.sh`. Prompt is preserved in `assets/src/transcript-pocket-hero.prompt.json`; source PNG is retained in `assets/src/`. The image is original AI-generated work for this product. It is disclosed in the footer.
 
+**Social derivative:** `public/assets/transcript-pocket-social.webp` is a deterministic 1200×630 center crop of that reviewed hero, made 2026-08-28 for Open Graph and Twitter cards. It introduces no new subject matter, text, or third-party asset.
+
 Atkinson Hyperlegible Next and IBM Plex Mono are bundled locally under the SIL Open Font License 1.1; notices ship at `/FONT-LICENSES.txt`. No font or other runtime asset is fetched from a CDN.

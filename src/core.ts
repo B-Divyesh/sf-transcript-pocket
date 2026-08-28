@@ -117,7 +117,12 @@ export function formatTime(seconds: number): string {
 }
 
 export function readPositionFile(raw: string): PositionFile {
-  const parsed: unknown = JSON.parse(raw);
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    throw new Error('That file is not valid position JSON. Choose a position file exported by Transcript Pocket.');
+  }
   if (!parsed || typeof parsed !== 'object') throw new Error('This is not a Transcript Pocket position file.');
   const value = parsed as Partial<PositionFile>;
   if (value.kind !== 'transcript-pocket-position' || value.version !== 1 || typeof value.position !== 'number') {

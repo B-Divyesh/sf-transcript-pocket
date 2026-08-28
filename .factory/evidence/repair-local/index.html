@@ -14,12 +14,14 @@
     <meta name="twitter:title" content="Transcript Pocket — read local podcast captions" />
     <meta name="twitter:description" content="Read local podcast audio with timed captions, large text, and saved listening positions." />
     <meta name="twitter:image" content="https://transcript-pocket.sociobot.in/assets/transcript-pocket-social.webp" />
-    <link rel="preload" href="./node_modules/@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="./node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="manifest" href="/manifest.json" />
+    <link rel="preload" href="/assets/atkinson-hyperlegible-next-latin-wght-normal-BcXVPD7q.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <link rel="icon" href="/icon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/icons/icon-192.png" />
     <title>Transcript Pocket — local audio with synchronized captions</title>
+    <script type="module" crossorigin src="/assets/app-jxTsUZJv.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/styles-IcqXqSoa.css">
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to player</a>
@@ -187,6 +189,5 @@
     </footer>
 
     <div id="toast" class="toast" role="status" hidden><span id="toast-text"></span><button id="toast-action" type="button" hidden>Update now</button></div>
-    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

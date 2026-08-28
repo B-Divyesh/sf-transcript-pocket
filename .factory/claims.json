@@ -1,0 +1,86 @@
+[
+  {
+    "id": "sample-demo",
+    "claim": "Try it with sample data opens a seeded listening sheet and keeps it separate from your files.",
+    "where": "landing action, demo banner, README",
+    "test": "npm run test:e2e -- --grep @claim:sample-demo",
+    "sandbox": "fresh browser context opens /?demo=1; asserts the seeded player, demo banner, and demo: IndexedDB namespace"
+  },
+  {
+    "id": "local-files",
+    "claim": "Files stay in this browser and the sample flow makes no cross-origin requests.",
+    "where": "landing facts, privacy, README",
+    "test": "npm run test:e2e -- --grep @claim:local-files",
+    "sandbox": "fresh demo context records every browser request and asserts each is same-origin"
+  },
+  {
+    "id": "offline-reload",
+    "claim": "Saved sheets reopen offline after the first visit.",
+    "where": "landing facts, README",
+    "test": "npm run test:e2e -- --grep @claim:offline-reload",
+    "sandbox": "open the demo, wait for its service worker, set the context offline, and reload the sample player"
+  },
+  {
+    "id": "synchronized-reading",
+    "claim": "The player highlights the timed phrase at the current playback position.",
+    "where": "README",
+    "test": "npm run test:e2e -- --grep @claim:synchronized-reading",
+    "sandbox": "set the shipped sample audio to 2.5 seconds and assert its second cue is active"
+  },
+  {
+    "id": "caption-formats",
+    "claim": "The player opens timed VTT or SRT captions beside local audio.",
+    "where": "file chooser, README",
+    "test": "npm run test:e2e -- --grep @claim:caption-formats",
+    "sandbox": "enter from the demo, leave it, and open a generated local WAV with a timed SRT file"
+  },
+  {
+    "id": "text-size",
+    "claim": "Reading text can be set from 18 to 30 pixels.",
+    "where": "README",
+    "test": "npm run test:e2e -- --grep @claim:text-size",
+    "sandbox": "use both size controls on the shipped sample and assert the 18 px and 30 px limits"
+  },
+  {
+    "id": "search",
+    "claim": "Search filters transcript phrases.",
+    "where": "README",
+    "test": "npm run test:e2e -- --grep @claim:search",
+    "sandbox": "search the shipped sample for a unique phrase and assert one visible result"
+  },
+  {
+    "id": "bookmarks",
+    "claim": "Listeners can bookmark a playback position.",
+    "where": "README",
+    "test": "npm run test:e2e -- --grep @claim:bookmarks",
+    "sandbox": "set the sample player position, activate Bookmark here, and assert the new marker"
+  },
+  {
+    "id": "position-export",
+    "claim": "Position export contains bookmarks and no audio bytes.",
+    "where": "README, export control",
+    "test": "npm run test:e2e -- --grep @claim:position-export",
+    "sandbox": "export the shipped sample, inspect the download, and assert the position record has no audio data"
+  },
+  {
+    "id": "audio-recovery",
+    "claim": "Unreadable audio produces a recovery message instead of an unusable player.",
+    "where": "file error state",
+    "test": "npm run test:e2e -- --grep @claim:audio-recovery",
+    "sandbox": "enter from the demo and submit non-audio bytes named .mp3 with a valid VTT"
+  },
+  {
+    "id": "position-import",
+    "claim": "Malformed position JSON explains which file to choose.",
+    "where": "import error state, README",
+    "test": "npm run test:e2e -- --grep @claim:position-import",
+    "sandbox": "upload malformed JSON to the sample player and assert the actionable message"
+  },
+  {
+    "id": "pocket-plus-price",
+    "claim": "Pocket Plus is an optional US$12 one-time license for appearance controls.",
+    "where": "Pocket Plus section, terms, README",
+    "test": "npm run test:e2e -- --grep @claim:pocket-plus-price",
+    "sandbox": "open the product and assert the stated price, one-time purchase wording, and checkout link"
+  }
+]

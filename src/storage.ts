@@ -14,10 +14,15 @@ export interface SavedEpisode {
 
 const DATABASE = 'transcript-pocket';
 const STORE = 'episodes';
+export type StorageScope = 'real' | 'demo';
 
-function openDatabase(): Promise<IDBDatabase> {
+function databaseName(scope: StorageScope): string {
+  return scope === 'demo' ? 'demo:transcript-pocket' : DATABASE;
+}
+
+function openDatabase(scope: StorageScope): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
-    const request = indexedDB.open(DATABASE, 1);
+    const request = indexedDB.open(databaseName(scope), 1);
     request.onupgradeneeded = () => {
       if (!request.result.objectStoreNames.contains(STORE)) request.result.createObjectStore(STORE, { keyPath: 'key' });
     };
@@ -26,8 +31,8 @@ function openDatabase(): Promise<IDBDatabase> {
   });
 }
 
-async function transact<T>(mode: IDBTransactionMode, action: (store: IDBObjectStore) => IDBRequest<T>): Promise<T> {
-  const database = await openDatabase();
+async function transact<T>(scope: StorageScope, mode: IDBTransactionMode, action: (store: IDBObjectStore) => IDBRequest<T>): Promise<T> {
+  const database = await openDatabase(scope);
   return new Promise((resolve, reject) => {
     const transaction = database.transaction(STORE, mode);
     const request = action(transaction.objectStore(STORE));
@@ -38,14 +43,14 @@ async function transact<T>(mode: IDBTransactionMode, action: (store: IDBObjectSt
   });
 }
 
-export function saveEpisode(episode: SavedEpisode): Promise<IDBValidKey> {
-  return transact('readwrite', (store) => store.put(episode));
+export function saveEpisode(episode: SavedEpisode, scope: StorageScope = 'real'): Promise<IDBValidKey> {
+  return transact(scope, 'readwrite', (store) => store.put(episode));
 }
 
-export function loadEpisode(): Promise<SavedEpisode | undefined> {
-  return transact('readonly', (store) => store.get('current'));
+export function loadEpisode(scope: StorageScope = 'real'): Promise<SavedEpisode | undefined> {
+  return transact(scope, 'readonly', (store) => store.get('current'));
 }
 
-export function clearEpisode(): Promise<undefined> {
-  return transact('readwrite', (store) => store.delete('current'));
+export function clearEpisode(scope: StorageScope = 'real'): Promise<undefined> {
+  return transact(scope, 'readwrite', (store) => store.delete('current'));
 }

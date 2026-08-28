@@ -1,7 +1,7 @@
 const VERSION = 'tp-shell-v1';
 const SHELL = [
   '/', '/index.html', '/privacy/', '/terms/', '/offline.html',
-  '/manifest.webmanifest', '/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png',
+  '/manifest.json', '/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png',
   '/icons/icon-maskable-512.png', '/assets/transcript-pocket-hero.webp',
   '/assets/transcript-pocket-hero-mobile.webp'
 ];

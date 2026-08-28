@@ -1,7 +1,8 @@
 import './styles.css';
 import { cueAtTime, decodeTranscript, formatTime, parseTranscript, readPositionFile, type Cue, type PositionFile } from './core';
 import { checkoutUrl, captureReturnedLicense, getLicense, optimisticallyUnlocked, storeLicense, verifyLicense } from './license';
-import { clearEpisode, loadEpisode, saveEpisode, type SavedEpisode } from './storage';
+import { sampleEpisode } from './demo';
+import { clearEpisode, loadEpisode, saveEpisode, type SavedEpisode, type StorageScope } from './storage';
 
 const byId = <T extends HTMLElement>(id: string): T => {
   const element = document.getElementById(id);
@@ -18,7 +19,7 @@ const rememberInput = byId<HTMLInputElement>('remember-episode');
 const fileError = byId<HTMLElement>('file-error');
 const restoreStatus = byId<HTMLElement>('restore-status');
 const audio = byId<HTMLAudioElement>('audio-player');
-const episodeTitle = byId<HTMLElement>('episode-title');
+let episodeTitle = byId<HTMLElement>('episode-title');
 const transcriptMeta = byId<HTMLElement>('transcript-meta');
 const cueList = byId<HTMLElement>('cue-list');
 const searchInput = byId<HTMLInputElement>('transcript-search');
@@ -34,12 +35,19 @@ const toastText = byId<HTMLElement>('toast-text');
 const toastAction = byId<HTMLButtonElement>('toast-action');
 const licenseStatus = byId<HTMLElement>('license-status');
 const themeControls = byId<HTMLFieldSetElement>('theme-controls');
+const demoBanner = byId<HTMLElement>('demo-banner');
+const tryDemo = byId<HTMLButtonElement>('try-demo');
+const resetDemo = byId<HTMLButtonElement>('reset-demo');
+const startReal = byId<HTMLButtonElement>('start-real');
+
+const demoMode = new URL(location.href).searchParams.get('demo') === '1' || location.pathname.replace(/\/+$/, '') === '/demo';
+const storageScope: StorageScope = demoMode ? 'demo' : 'real';
 
 let episode: SavedEpisode | null = null;
 let audioUrl = '';
 let cueElements: HTMLButtonElement[] = [];
 let activeCue = -1;
-let transcriptSize = Number(localStorage.getItem('tp:transcript-size')) || 20;
+let transcriptSize = Number(localStorage.getItem(`${demoMode ? 'demo:' : ''}tp:transcript-size`)) || 20;
 let lastPersist = 0;
 let toastTimer = 0;
 
@@ -75,11 +83,51 @@ function setAudioSource(blob: Blob): void {
   audio.src = audioUrl;
 }
 
+function setHeadingLevel(element: HTMLElement, tagName: 'h1' | 'h2'): HTMLElement {
+  if (element.tagName.toLowerCase() === tagName) return element;
+  const replacement = document.createElement(tagName);
+  for (const attribute of element.attributes) replacement.setAttribute(attribute.name, attribute.value);
+  replacement.textContent = element.textContent;
+  element.replaceWith(replacement);
+  return replacement;
+}
+
+function validateAudioFile(file: File): Promise<void> {
+  return new Promise((resolve, reject) => {
+    const probe = document.createElement('audio');
+    const probeUrl = URL.createObjectURL(file);
+    const clean = () => {
+      probe.removeAttribute('src');
+      probe.load();
+      URL.revokeObjectURL(probeUrl);
+    };
+    const timer = window.setTimeout(() => {
+      clean();
+      reject(new Error('That audio file could not be read. Choose a supported audio file such as MP3, M4A, WAV, OGG, or AAC.'));
+    }, 10_000);
+    probe.addEventListener('loadedmetadata', () => {
+      window.clearTimeout(timer);
+      clean();
+      resolve();
+    }, { once: true });
+    probe.addEventListener('error', () => {
+      window.clearTimeout(timer);
+      clean();
+      reject(new Error('That audio file could not be played. Choose a supported audio file such as MP3, M4A, WAV, OGG, or AAC.'));
+    }, { once: true });
+    probe.preload = 'metadata';
+    probe.src = probeUrl;
+    probe.load();
+  });
+}
+
 function openWorkspace(next: SavedEpisode, announce: string): void {
   episode = next;
   activeCue = -1;
   loader.hidden = true;
   workspace.hidden = false;
+  episodeTitle = setHeadingLevel(episodeTitle, 'h1');
+  demoBanner.hidden = !demoMode;
   episodeTitle.textContent = cleanEpisodeName(next.audioName);
   transcriptMeta.textContent = `${next.transcriptName} · ${next.cues.length.toLocaleString()} timed phrases`;
   setAudioSource(next.audioBlob);
@@ -90,6 +138,7 @@ function openWorkspace(next: SavedEpisode, announce: string): void {
   audio.addEventListener('loadedmetadata', restoreAudioPosition, { once: true });
   dataStatus.textContent = announce;
   workspace.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' });
+  episodeTitle.focus({ preventScroll: true });
 }
 
 function restoreAudioPosition(): void {
@@ -172,7 +221,7 @@ async function persistProgress(): Promise<void> {
   lastPersist = Date.now();
   episode.updatedAt = new Date().toISOString();
   try {
-    await saveEpisode(episode);
+    await saveEpisode(episode, storageScope);
   } catch {
     dataStatus.textContent = 'Your files still work in this tab, but this browser could not save the episode for offline return.';
   }
@@ -199,6 +248,7 @@ fileForm.addEventListener('submit', async (event) => {
   try {
     const source = decodeTranscript(await transcriptFile.arrayBuffer());
     const cues = parseTranscript(source);
+    await validateAudioFile(audioFile);
     const next: SavedEpisode = {
       key: 'current', audioName: audioFile.name, audioType: audioFile.type,
       audioBlob: audioFile, transcriptName: transcriptFile.name, cues,
@@ -206,12 +256,12 @@ fileForm.addEventListener('submit', async (event) => {
     };
     if (rememberInput.checked) {
       try {
-        await saveEpisode(next);
+        await saveEpisode(next, storageScope);
       } catch {
         fileError.textContent = 'The episode opened, but it is too large for this browser to keep offline. It will remain available in this tab.';
       }
     } else {
-      await clearEpisode().catch(() => undefined);
+      await clearEpisode(storageScope).catch(() => undefined);
     }
     openWorkspace(next, rememberInput.checked ? 'Saved locally for your next visit.' : 'Open for this tab only.');
   } catch (error) {
@@ -225,6 +275,7 @@ fileForm.addEventListener('submit', async (event) => {
 byId<HTMLButtonElement>('change-files').addEventListener('click', () => {
   audio.pause();
   workspace.hidden = true;
+  episodeTitle = setHeadingLevel(episodeTitle, 'h2');
   loader.hidden = false;
   loader.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' });
 });
@@ -336,7 +387,7 @@ byId<HTMLInputElement>('import-position').addEventListener('change', async (even
 byId<HTMLButtonElement>('remove-saved').addEventListener('click', async () => {
   if (!confirm('Remove the saved audio, transcript, position, and bookmarks from this browser? The episode will keep playing until this tab closes.')) return;
   try {
-    await clearEpisode();
+    await clearEpisode(storageScope);
     rememberInput.checked = false;
     dataStatus.textContent = 'Offline copy removed. The open player is unchanged until this tab closes.';
   } catch {
@@ -348,7 +399,7 @@ function applyTranscriptSize(): void {
   transcriptSize = Math.min(30, Math.max(18, transcriptSize));
   document.documentElement.style.setProperty('--transcript-size', `${transcriptSize}px`);
   textSizeValue.textContent = `${transcriptSize} px`;
-  localStorage.setItem('tp:transcript-size', String(transcriptSize));
+  localStorage.setItem(`${demoMode ? 'demo:' : ''}tp:transcript-size`, String(transcriptSize));
 }
 byId<HTMLButtonElement>('text-smaller').addEventListener('click', () => { transcriptSize -= 2; applyTranscriptSize(); });
 byId<HTMLButtonElement>('text-larger').addEventListener('click', () => { transcriptSize += 2; applyTranscriptSize(); });
@@ -437,7 +488,11 @@ void refreshLicense();
 
 async function restoreSavedEpisode(): Promise<void> {
   try {
-    const saved = await loadEpisode();
+    if (demoMode) {
+      await openDemo();
+      return;
+    }
+    const saved = await loadEpisode(storageScope);
     if (!saved?.audioBlob || !saved.cues?.length) {
       restoreStatus.textContent = 'No saved episode yet. Choose two files to begin.';
       return;
@@ -449,6 +504,28 @@ async function restoreSavedEpisode(): Promise<void> {
   }
 }
 void restoreSavedEpisode();
+
+async function openDemo(): Promise<void> {
+  const next = sampleEpisode();
+  await saveEpisode(next, 'demo');
+  rememberInput.checked = true;
+  openWorkspace(next, 'Demo sample ready. Nothing here is saved with your files.');
+}
+
+tryDemo.addEventListener('click', () => {
+  location.assign('/?demo=1');
+});
+
+resetDemo.addEventListener('click', async () => {
+  await clearEpisode('demo');
+  await openDemo();
+  dataStatus.textContent = 'Demo reset to the sample listening sheet.';
+});
+
+startReal.addEventListener('click', async () => {
+  await clearEpisode('demo');
+  location.assign('/');
+});
 
 if ('serviceWorker' in navigator) {
   const hadServiceWorker = Boolean(navigator.serviceWorker.controller);

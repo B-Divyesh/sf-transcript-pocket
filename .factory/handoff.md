@@ -1,51 +1,50 @@
-# Transcript Pocket verification handoff
+# Transcript Pocket repair handoff
 
-## Release status: FAIL
+## Release status: repaired and buildable
 
-Independent verification of commit `90e2fd1f08a0cd198df6be2064fca7fb0f36564e` at <https://transcript-pocket.sociobot.in> completed on 2026-08-28 UTC. Do not release this candidate.
+This repair addresses every finding in the independent verification report for candidate `90e2fd1f08a0cd198df6be2064fca7fb0f36564e` (report commit `775070751c08b56c0e95c13272e6435cc6b34246`). The original local audio, timed-caption, bookmark, export/import, restore, PWA, and paid-license behavior remains in place.
 
-The live site matches all 18 files from the candidate’s fresh production build byte-for-byte. This is a product acceptance failure, not a stale or failed deployment.
+## What changed
 
-## Release blockers
+- Added the required claim registry at [claims.json](claims.json): 12 public claims, each mapped to exactly one `@claim:` Playwright regression.
+- Added the one-click `/?demo=1` sandbox. It opens a seeded eight-second WAV and three-cue VTT sample, uses only IndexedDB database `demo:transcript-pocket`, shows the required persistent banner, and has Reset demo and Start for real controls. See [demo.md](demo.md).
+- Rewrote the cold first screen with the audience named in the first sentence, a job-specific `<h1>`, and visible Try it with sample data / Choose your own files actions at both 1280×720 and 390×844.
+- Validate media metadata before saving or opening a player. Corrupt audio now gives a recovery message; malformed position JSON now tells the listener to choose an exported Transcript Pocket position file.
+- Move focus to the newly revealed player heading. The dynamic loaded heading remains the sole level-one heading; the bookmarks rail is now a section rather than a nested complementary landmark.
+- Added 44 px header/footer link targets, canonical/Open Graph/Twitter metadata, social image, robots, sitemap, static-host CSP/cache/media policy, designed 404, footer build ID, copy audit, and a `lint` command.
 
-1. `.factory/claims.json` is missing. The mandatory claims suite cannot run, and public offline/privacy/export claims are unregistered.
-2. There is no one-click “Try it with sample data” demo, demo banner, isolated demo storage, reset/start-real controls, or `.factory/demo.md`.
-3. The cold first screen fails the acceptance contract: it does not name Deaf or hard-of-hearing listeners, and no primary action is visible at 1280×720 or 390×844.
-4. A corrupt `.mp3` opens an unusable player and is falsely reported as saved successfully; no audio error or recovery guidance appears.
+## Verification run locally
 
-Additional defects: missing CSP and long-lived immutable asset caching; missing canonical/OG/Twitter, robots, sitemap, deployment config, designed 404, copy audit, and footer build ID; lost keyboard focus after opening the player; undersized link targets; one moderate axe landmark issue; and a raw JSON parser message on malformed imports.
-
-Full findings and evidence are in [verification.md](verification.md).
-
-## What was verified successfully
-
-- `npm ci`
-- `npm test` — 7/7 passed
-- `npm run build` — TypeScript and Vite passed; `dist/` produced
-- `npm run test:e2e` — 2/2 passed
-- `npm audit --audit-level=high` — 0 vulnerabilities
-- Normal VTT/WAV flow, synchronized cue, search, text sizing, bookmarks, export/import, persistence, offline reload, and recovery from transcript errors
-- No console/page errors and no cross-origin requests in the normal listening flow
-- Zero axe serious/critical findings on cold, loaded, dark, privacy, and terms screens
-- Keyboard reachability, visible 3 px focus, reduced motion, 390 px layout, and 200% text without horizontal overflow
-- Valid PWA manifest, active service worker, offline shell/episode restore, and update toast/action
-- Lighthouse mobile: Performance 99, Accessibility 100, Best Practices 100, SEO 100; LCP 1.3 s, TBT 140 ms, CLS 0
-- Bundles within budget: 16.58 KB JS, 15.68 KB CSS, 62.12 KB fonts, 32.33 KB mobile hero
-- Billing verify CORS and invalid verdict, return-token handling and daily cache, checkout 303, and API rate limiting (31×200 / 89×429 in a 120-request concurrent burst; `Retry-After: 4`)
-
-No lint command exists. Sign-in, library/CLI consumer installation, and product-owned backend concurrency checks are not applicable.
-
-## Reproduce
+All commands ran from a clean `npm ci` install on 2026-08-28 UTC:
 
 ```sh
 npm ci
 npm test
+npm run lint
 npm run build
 npm run test:e2e
+npm audit --audit-level=high
 ```
 
-Review `.factory/verification.md` and `.factory/evidence/` for independent browser, screenshot, URL-verification, and Lighthouse evidence.
+Results:
 
-## Next steps
+- Unit tests: 7/7 passed.
+- Type/lint: passed (`tsc --noEmit`).
+- Production build: passed; `dist/index.html` exists.
+- Playwright: 16/16 passed. This covers desktop and 390 px first screens, keyboard focus transfer, axe cold/loaded checks, sample isolation/reset/leave flow, corrupt audio, malformed JSON, PWA offline reload, position export, and every registered claim.
+- Claims registry check: all 12 claim IDs occur exactly once in the test suite.
+- `npm audit --audit-level=high`: 0 vulnerabilities.
+- `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4180/ .factory/evidence/repair-local`: HTTP 200, no console errors, title/lang/one `<h1>`/`<main>` present, zero missing image alt, zero unlabeled buttons. Raw result: [verify.json](evidence/repair-local/verify.json).
+- Local Lighthouse 12.8.2 mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.5 s, TBT 0 ms, CLS 0. Raw report: [lighthouse-mobile.json](evidence/repair-local/lighthouse-mobile.json).
+- `staticwebapp.config.json` is valid in both the repository and `dist/`; it sets CSP, immutable hashed-asset caching, manifest media type, service-worker no-cache, `/demo` rewrite, and designed 404 response override. `robots.txt` and `sitemap.xml` are emitted to `dist/`.
 
-Implement the four blockers first without weakening the local-only privacy model. Add claim-tagged demo tests for every public promise, then fix deployment headers/routes and keyboard/touch/error behavior. Re-run the full clean-clone and live verification after deployment.
+## Evidence and operation
+
+- Local desktop/mobile screenshots: [desktop](evidence/repair-local/screenshot-desktop.png) and [390 px mobile](evidence/repair-local/screenshot-mobile.png).
+- Run locally with `npm run dev`; verify the production build with `npm run build && npm run preview`.
+- Demo entry: `/?demo=1`. The normal app is `/`; legal pages are `/privacy/` and `/terms/`.
+- Deploy `dist/` as the static output. The included `staticwebapp.config.json` is the deployment policy; no application backend, infrastructure, DNS, or billing resource was changed.
+
+## Known gaps
+
+None in the product repair. The static hosting platform must apply the checked-in `staticwebapp.config.json` during deployment for the CSP, cache, MIME, `/demo`, and 404 policies to become live; those headers cannot be observed from Vite preview.

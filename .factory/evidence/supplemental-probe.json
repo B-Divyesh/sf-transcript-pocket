@@ -1,0 +1,82 @@
+{
+  "coldMobile": {
+    "text": [
+      "Transcript Pocket",
+      "Transcript Pocket",
+      "Sheet 01 · local listening plan",
+      "Bring the audio.Read every beat.",
+      "Pair an audio file you own with its VTT or SRT sidecar. Transcript Pocket follows the words, keeps your place, and works without an account.",
+      "Your files stay on this device.No upload, transcription, or tracking."
+    ],
+    "actions": [
+      "Transcript Pocket"
+    ],
+    "demoCount": 0,
+    "scrollWidth": 390,
+    "clientWidth": 390
+  },
+  "mobileText200": {
+    "scrollWidth": 390,
+    "clientWidth": 390,
+    "bodyHeight": 3719
+  },
+  "mobileErrors": [],
+  "manifest": {
+    "url": "https://transcript-pocket.sociobot.in/manifest.webmanifest",
+    "errors": [],
+    "data": {
+      "name": "Transcript Pocket",
+      "short_name": "Transcript",
+      "description": "A private offline audio player for synchronized VTT and SRT transcripts.",
+      "id": "/",
+      "start_url": "/?source=pwa&v=1",
+      "scope": "/",
+      "display": "standalone",
+      "background_color": "#dceff0",
+      "theme_color": "#dceff0",
+      "orientation": "any",
+      "categories": [
+        "utilities",
+        "accessibility",
+        "music"
+      ],
+      "icons": [
+        {
+          "src": "/icons/icon-192.png",
+          "sizes": "192x192",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "any"
+        },
+        {
+          "src": "/icons/icon-maskable-512.png",
+          "sizes": "512x512",
+          "type": "image/png",
+          "purpose": "maskable"
+        }
+      ]
+    }
+  },
+  "license": {
+    "firstLicense": {
+      "url": "https://transcript-pocket.sociobot.in/",
+      "stored": "qa-invalid-license-probe-90e2fd1",
+      "verdict": {
+        "valid": false,
+        "reason": "invalid",
+        "checkedAt": 1787910896802
+      },
+      "status": "This license is no longer active. You can keep using every free listening feature.",
+      "disabled": true,
+      "checkout": "https://api.sociobot.in/api/v1/products/transcript-pocket/checkout"
+    },
+    "requestsAfterFirst": 1,
+    "requestsAfterReload": 1,
+    "emptyLicenseError": "Paste the license token from your purchase email."
+  }
+}

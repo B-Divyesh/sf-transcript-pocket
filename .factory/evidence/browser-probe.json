@@ -1,0 +1,756 @@
+[
+  {
+    "label": "local",
+    "status": 200,
+    "firstRead": {
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "h1": [
+        "Transcript Pocket"
+      ],
+      "headings": [
+        "H1:Transcript Pocket",
+        "H2:Bring the audio.Read every beat."
+      ],
+      "visibleActions": [
+        "Transcript Pocket",
+        "Pocket Plus"
+      ],
+      "demoActions": 0,
+      "viewportText": [
+        "Transcript Pocket",
+        "Local by design",
+        "Pocket Plus",
+        "Sheet 01 · local listening plan",
+        "Pair an audio file you own with its VTT or SRT sidecar. Transcript Pocket follows the words, keeps your place, and works without an account.",
+        "Ready for offline listening."
+      ],
+      "scrollHeight": 2118,
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    "initialAxe": [],
+    "undersizedTargets": [
+      {
+        "el": "A",
+        "id": "",
+        "text": "Transcript Pocket",
+        "width": 228,
+        "height": 28
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Pocket Plus",
+        "width": 88,
+        "height": 17
+      },
+      {
+        "el": "INPUT",
+        "id": "audio-file",
+        "text": "",
+        "width": 1,
+        "height": 1
+      },
+      {
+        "el": "INPUT",
+        "id": "transcript-file",
+        "text": "",
+        "width": 1,
+        "height": 1
+      },
+      {
+        "el": "INPUT",
+        "id": "remember-episode",
+        "text": "",
+        "width": 20,
+        "height": 20
+      },
+      {
+        "el": "INPUT",
+        "id": "",
+        "text": "",
+        "width": 18,
+        "height": 18
+      },
+      {
+        "el": "INPUT",
+        "id": "",
+        "text": "",
+        "width": 18,
+        "height": 18
+      },
+      {
+        "el": "INPUT",
+        "id": "",
+        "text": "",
+        "width": 18,
+        "height": 18
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Privacy",
+        "width": 42,
+        "height": 17
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Terms",
+        "width": 36,
+        "height": 17
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Privacy",
+        "width": 42,
+        "height": 18
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Terms",
+        "width": 37,
+        "height": 18
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Font licenses",
+        "width": 80,
+        "height": 18
+      }
+    ],
+    "firstFocus": {
+      "tag": "A",
+      "text": "Skip to player",
+      "outline": "3px solid rgb(7, 95, 128)",
+      "rect": [
+        8,
+        8,
+        138,
+        48.796875
+      ]
+    },
+    "tabStops": [
+      {
+        "tag": "A",
+        "text": "Skip to player",
+        "outline": "3px solid rgb(7, 95, 128)",
+        "rect": [
+          8,
+          8,
+          138,
+          48.796875
+        ]
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Transcript Pocket"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Pocket Plus"
+      },
+      {
+        "tag": "INPUT",
+        "id": "audio-file",
+        "text": ""
+      },
+      {
+        "tag": "INPUT",
+        "id": "transcript-file",
+        "text": ""
+      },
+      {
+        "tag": "INPUT",
+        "id": "remember-episode",
+        "text": ""
+      },
+      {
+        "tag": "BUTTON",
+        "id": "open-player",
+        "text": "Open listening sheet →"
+      },
+      {
+        "tag": "A",
+        "id": "buy-link",
+        "text": "Buy Pocket Plus"
+      },
+      {
+        "tag": "INPUT",
+        "id": "license-token",
+        "text": ""
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Verify license"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Privacy"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Terms"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Privacy"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Terms"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Font licenses"
+      },
+      {
+        "tag": "BODY",
+        "id": "",
+        "text": "Skip to player\n    \n      \n        \n        Transcript Pocke"
+      }
+    ],
+    "requiredValidation": {
+      "activeId": "audio-file",
+      "error": "",
+      "audioValid": false,
+      "transcriptValid": false
+    },
+    "wrongExtensionError": "That transcript is not a .vtt or .srt file. Choose a timed sidecar caption file.",
+    "emptyError": "The transcript file is empty. Choose a VTT or SRT file with timed phrases.",
+    "malformedError": "No timed phrases were found. Check that the file uses VTT or SRT timestamps such as 00:01.000 --> 00:04.000.",
+    "focusAfterOpen": {
+      "tag": "BODY",
+      "id": "",
+      "hidden": false
+    },
+    "activeCue": "0:02This phrase is searchable.",
+    "emptySearch": {
+      "count": "0 matches",
+      "visible": 0
+    },
+    "maxText": "30 px",
+    "minText": "18 px",
+    "duplicateBookmark": "A bookmark already exists at 0:02.",
+    "exportedEvidence": {
+      "filename": "episode-position.json",
+      "keys": [
+        "kind",
+        "version",
+        "audioName",
+        "transcriptName",
+        "position",
+        "bookmarks",
+        "exportedAt"
+      ],
+      "bookmarkCount": 1,
+      "hasAudioBytes": false
+    },
+    "invalidImport": "Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+    "mismatchedImport": "Position restored. The exported audio name differs, so confirm this is the same episode.",
+    "importedTime": 6,
+    "workspaceAxe": [
+      {
+        "id": "landmark-complementary-is-top-level",
+        "impact": "moderate",
+        "nodes": 1,
+        "help": "Aside should not be contained in another landmark"
+      }
+    ],
+    "darkAxe": [
+      {
+        "id": "landmark-complementary-is-top-level",
+        "impact": "moderate",
+        "nodes": 1,
+        "help": "Aside should not be contained in another landmark"
+      }
+    ],
+    "resized": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollHeight": 2196
+    },
+    "sw": {
+      "scope": "http://127.0.0.1:4173/",
+      "controller": true,
+      "active": "activated",
+      "scriptURL": "http://127.0.0.1:4173/sw.js",
+      "keys": [
+        "tp-shell-v1"
+      ],
+      "cacheEntries": {
+        "tp-shell-v1": [
+          "/",
+          "/index.html",
+          "/privacy/",
+          "/terms/",
+          "/offline.html",
+          "/manifest.webmanifest",
+          "/icon.svg",
+          "/icons/icon-192.png",
+          "/icons/icon-512.png",
+          "/icons/icon-maskable-512.png",
+          "/assets/transcript-pocket-hero-mobile.webp",
+          "/assets/app-q3b71MS1.js",
+          "/assets/styles-CYXabHeV.css",
+          "/assets/transcript-pocket-hero.webp",
+          "/assets/ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "/assets/ibm-plex-mono-latin-700-normal-CNHXzs6v.woff",
+          "/assets/atkinson-hyperlegible-next-latin-wght-normal-BcXVPD7q.woff2"
+        ]
+      }
+    },
+    "offline": {
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "workspaceVisible": true,
+      "cues": 3,
+      "network": "Offline · player ready"
+    },
+    "legal": {
+      "/privacy/": {
+        "status": 200,
+        "title": "Privacy — Transcript Pocket",
+        "h1": [
+          "Privacy, in plain language"
+        ],
+        "axe": []
+      },
+      "/terms/": {
+        "status": 200,
+        "title": "Terms — Transcript Pocket",
+        "h1": [
+          "Terms of use"
+        ],
+        "axe": []
+      }
+    },
+    "notFoundResult": {
+      "status": 200,
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "body": "Skip to player\nTranscript Pocket\nLocal by design\nPocket Plus\n\nACTIVE LISTENING SHEET\n\nepisode\n\nepisode.vtt · 3 timed phrases\n\nChange files\n−10\n0:00 / 0:08\n+10\nSpeed\n0.75×\n1×\n1.25×\n1.5×\n2×\n＋ Bookmark here\n\nTIME-ALIGNED TRANSCRIPT\n\nReading rail\nA−\n18 px\nA＋\nSearch transcript\nAll phrases\n0:00\nWelcome to"
+    },
+    "demoResult": {
+      "status": 200,
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "body": "Skip to player\nTranscript Pocket\nLocal by design\nPocket Plus\n\nACTIVE LISTENING SHEET\n\nepisode\n\nepisode.vtt · 3 timed phrases\n\nChange files\n−10\n0:00 / 0:08\n+10\nSpeed\n0.75×\n1×\n1.25×\n1.5×\n2×\n＋ Bookmark here\n\nTIME-ALIGNED TRANSCRIPT\n\nReading rail\nA−\n18 px\nA＋\nSearch transcript\nAll phrases\n0:00\nWelcome to",
+      "banner": 0
+    },
+    "mobileLayout": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "demoVisible": false,
+      "primaryVisible": [
+        "−10",
+        "+10",
+        "＋ Bookmark here",
+        "A−",
+        "A＋",
+        "0:00Welcome to the pocket.",
+        "0:02This phrase is searchable.",
+        "0:05The final blueprint note."
+      ]
+    },
+    "reduced": {
+      "media": true,
+      "scrollBehavior": "auto",
+      "animationDuration": "1e-05s",
+      "transitionDuration": "1e-05s"
+    },
+    "consoleErrors": [],
+    "pageErrors": [],
+    "requestOrigins": [
+      "http://127.0.0.1:4173"
+    ],
+    "crossOriginRequests": []
+  },
+  {
+    "label": "live",
+    "status": 200,
+    "firstRead": {
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "h1": [
+        "Transcript Pocket"
+      ],
+      "headings": [
+        "H1:Transcript Pocket",
+        "H2:Bring the audio.Read every beat."
+      ],
+      "visibleActions": [
+        "Transcript Pocket",
+        "Pocket Plus"
+      ],
+      "demoActions": 0,
+      "viewportText": [
+        "Transcript Pocket",
+        "Local by design",
+        "Pocket Plus",
+        "Sheet 01 · local listening plan",
+        "Pair an audio file you own with its VTT or SRT sidecar. Transcript Pocket follows the words, keeps your place, and works without an account.",
+        "Ready for offline listening."
+      ],
+      "scrollHeight": 2118,
+      "viewport": [
+        1280,
+        720
+      ]
+    },
+    "initialAxe": [],
+    "undersizedTargets": [
+      {
+        "el": "A",
+        "id": "",
+        "text": "Transcript Pocket",
+        "width": 228,
+        "height": 28
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Pocket Plus",
+        "width": 88,
+        "height": 17
+      },
+      {
+        "el": "INPUT",
+        "id": "audio-file",
+        "text": "",
+        "width": 1,
+        "height": 1
+      },
+      {
+        "el": "INPUT",
+        "id": "transcript-file",
+        "text": "",
+        "width": 1,
+        "height": 1
+      },
+      {
+        "el": "INPUT",
+        "id": "remember-episode",
+        "text": "",
+        "width": 20,
+        "height": 20
+      },
+      {
+        "el": "INPUT",
+        "id": "",
+        "text": "",
+        "width": 18,
+        "height": 18
+      },
+      {
+        "el": "INPUT",
+        "id": "",
+        "text": "",
+        "width": 18,
+        "height": 18
+      },
+      {
+        "el": "INPUT",
+        "id": "",
+        "text": "",
+        "width": 18,
+        "height": 18
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Privacy",
+        "width": 42,
+        "height": 17
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Terms",
+        "width": 36,
+        "height": 17
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Privacy",
+        "width": 42,
+        "height": 18
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Terms",
+        "width": 37,
+        "height": 18
+      },
+      {
+        "el": "A",
+        "id": "",
+        "text": "Font licenses",
+        "width": 80,
+        "height": 18
+      }
+    ],
+    "firstFocus": {
+      "tag": "A",
+      "text": "Skip to player",
+      "outline": "3px solid rgb(7, 95, 128)",
+      "rect": [
+        8,
+        8,
+        138,
+        48.796875
+      ]
+    },
+    "tabStops": [
+      {
+        "tag": "A",
+        "text": "Skip to player",
+        "outline": "3px solid rgb(7, 95, 128)",
+        "rect": [
+          8,
+          8,
+          138,
+          48.796875
+        ]
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Transcript Pocket"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Pocket Plus"
+      },
+      {
+        "tag": "INPUT",
+        "id": "audio-file",
+        "text": ""
+      },
+      {
+        "tag": "INPUT",
+        "id": "transcript-file",
+        "text": ""
+      },
+      {
+        "tag": "INPUT",
+        "id": "remember-episode",
+        "text": ""
+      },
+      {
+        "tag": "BUTTON",
+        "id": "open-player",
+        "text": "Open listening sheet →"
+      },
+      {
+        "tag": "A",
+        "id": "buy-link",
+        "text": "Buy Pocket Plus"
+      },
+      {
+        "tag": "INPUT",
+        "id": "license-token",
+        "text": ""
+      },
+      {
+        "tag": "BUTTON",
+        "id": "",
+        "text": "Verify license"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Privacy"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Terms"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Privacy"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Terms"
+      },
+      {
+        "tag": "A",
+        "id": "",
+        "text": "Font licenses"
+      },
+      {
+        "tag": "BODY",
+        "id": "",
+        "text": "Skip to player\n    \n      \n        \n        Transcript Pocke"
+      }
+    ],
+    "requiredValidation": {
+      "activeId": "audio-file",
+      "error": "",
+      "audioValid": false,
+      "transcriptValid": false
+    },
+    "wrongExtensionError": "That transcript is not a .vtt or .srt file. Choose a timed sidecar caption file.",
+    "emptyError": "The transcript file is empty. Choose a VTT or SRT file with timed phrases.",
+    "malformedError": "No timed phrases were found. Check that the file uses VTT or SRT timestamps such as 00:01.000 --> 00:04.000.",
+    "focusAfterOpen": {
+      "tag": "BODY",
+      "id": "",
+      "hidden": false
+    },
+    "activeCue": "0:02This phrase is searchable.",
+    "emptySearch": {
+      "count": "0 matches",
+      "visible": 0
+    },
+    "maxText": "30 px",
+    "minText": "18 px",
+    "duplicateBookmark": "A bookmark already exists at 0:02.",
+    "exportedEvidence": {
+      "filename": "episode-position.json",
+      "keys": [
+        "kind",
+        "version",
+        "audioName",
+        "transcriptName",
+        "position",
+        "bookmarks",
+        "exportedAt"
+      ],
+      "bookmarkCount": 1,
+      "hasAudioBytes": false
+    },
+    "invalidImport": "Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+    "mismatchedImport": "Position restored. The exported audio name differs, so confirm this is the same episode.",
+    "importedTime": 6,
+    "workspaceAxe": [
+      {
+        "id": "landmark-complementary-is-top-level",
+        "impact": "moderate",
+        "nodes": 1,
+        "help": "Aside should not be contained in another landmark"
+      }
+    ],
+    "darkAxe": [
+      {
+        "id": "landmark-complementary-is-top-level",
+        "impact": "moderate",
+        "nodes": 1,
+        "help": "Aside should not be contained in another landmark"
+      }
+    ],
+    "resized": {
+      "scrollWidth": 1280,
+      "clientWidth": 1280,
+      "scrollHeight": 2196
+    },
+    "sw": {
+      "scope": "https://transcript-pocket.sociobot.in/",
+      "controller": true,
+      "active": "activated",
+      "scriptURL": "https://transcript-pocket.sociobot.in/sw.js",
+      "keys": [
+        "tp-shell-v1"
+      ],
+      "cacheEntries": {
+        "tp-shell-v1": [
+          "/",
+          "/index.html",
+          "/privacy/",
+          "/terms/",
+          "/offline.html",
+          "/manifest.webmanifest",
+          "/icon.svg",
+          "/icons/icon-192.png",
+          "/icons/icon-512.png",
+          "/icons/icon-maskable-512.png",
+          "/assets/transcript-pocket-hero-mobile.webp",
+          "/assets/app-q3b71MS1.js",
+          "/assets/styles-CYXabHeV.css",
+          "/assets/transcript-pocket-hero.webp",
+          "/assets/ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2",
+          "/assets/ibm-plex-mono-latin-700-normal-CNHXzs6v.woff",
+          "/assets/atkinson-hyperlegible-next-latin-wght-normal-BcXVPD7q.woff2"
+        ]
+      }
+    },
+    "offline": {
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "workspaceVisible": true,
+      "cues": 3,
+      "network": "Offline · player ready"
+    },
+    "legal": {
+      "/privacy/": {
+        "status": 200,
+        "title": "Privacy — Transcript Pocket",
+        "h1": [
+          "Privacy, in plain language"
+        ],
+        "axe": []
+      },
+      "/terms/": {
+        "status": 200,
+        "title": "Terms — Transcript Pocket",
+        "h1": [
+          "Terms of use"
+        ],
+        "axe": []
+      }
+    },
+    "notFoundResult": {
+      "status": 200,
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "body": "Skip to player\nTranscript Pocket\nLocal by design\nPocket Plus\n\nACTIVE LISTENING SHEET\n\nepisode\n\nepisode.vtt · 3 timed phrases\n\nChange files\n−10\n0:00 / 0:08\n+10\nSpeed\n0.75×\n1×\n1.25×\n1.5×\n2×\n＋ Bookmark here\n\nTIME-ALIGNED TRANSCRIPT\n\nReading rail\nA−\n18 px\nA＋\nSearch transcript\nAll phrases\n0:00\nWelcome to"
+    },
+    "demoResult": {
+      "status": 200,
+      "title": "Transcript Pocket — local audio with synchronized captions",
+      "body": "Skip to player\nTranscript Pocket\nLocal by design\nPocket Plus\n\nACTIVE LISTENING SHEET\n\nepisode\n\nepisode.vtt · 3 timed phrases\n\nChange files\n−10\n0:00 / 0:08\n+10\nSpeed\n0.75×\n1×\n1.25×\n1.5×\n2×\n＋ Bookmark here\n\nTIME-ALIGNED TRANSCRIPT\n\nReading rail\nA−\n18 px\nA＋\nSearch transcript\nAll phrases\n0:00\nWelcome to",
+      "banner": 0
+    },
+    "mobileLayout": {
+      "scrollWidth": 390,
+      "clientWidth": 390,
+      "demoVisible": false,
+      "primaryVisible": [
+        "−10",
+        "+10",
+        "＋ Bookmark here",
+        "A−",
+        "A＋",
+        "0:00Welcome to the pocket.",
+        "0:02This phrase is searchable.",
+        "0:05The final blueprint note."
+      ]
+    },
+    "reduced": {
+      "media": true,
+      "scrollBehavior": "auto",
+      "animationDuration": "1e-05s",
+      "transitionDuration": "1e-05s"
+    },
+    "consoleErrors": [],
+    "pageErrors": [],
+    "requestOrigins": [
+      "https://transcript-pocket.sociobot.in"
+    ],
+    "crossOriginRequests": []
+  }
+]

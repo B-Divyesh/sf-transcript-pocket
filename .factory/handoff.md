@@ -37,14 +37,15 @@ Results:
 - `/opt/fleet/lib/verify-url.sh http://127.0.0.1:4180/ .factory/evidence/repair-local`: HTTP 200, no console errors, title/lang/one `<h1>`/`<main>` present, zero missing image alt, zero unlabeled buttons. Raw result: [verify.json](evidence/repair-local/verify.json).
 - Local Lighthouse 12.8.2 mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 100; FCP 0.9 s, LCP 1.5 s, TBT 0 ms, CLS 0. Raw report: [lighthouse-mobile.json](evidence/repair-local/lighthouse-mobile.json).
 - `staticwebapp.config.json` is valid in both the repository and `dist/`; it sets CSP, immutable hashed-asset caching, manifest media type, service-worker no-cache, `/demo` rewrite, and designed 404 response override. `robots.txt` and `sitemap.xml` are emitted to `dist/`.
+- Production deployment: deployed `dist/` to the existing `sf-transcript-pocket` Azure Static Web App and verified the custom domain. The live site has the repaired headline and zero console errors; `manifest.json` is `application/json`, hashed JavaScript is `public, max-age=31536000, immutable`, `/demo` returns 200, and an unknown path returns 404. Raw live verifier result: [verify.json](evidence/repair-live/verify.json).
 
 ## Evidence and operation
 
-- Local desktop/mobile screenshots: [desktop](evidence/repair-local/screenshot-desktop.png) and [390 px mobile](evidence/repair-local/screenshot-mobile.png).
+- Local desktop/mobile screenshots: [desktop](evidence/repair-local/screenshot-desktop.png) and [390 px mobile](evidence/repair-local/screenshot-mobile.png). The live desktop/mobile verifier screenshots are in [repair-live](evidence/repair-live/).
 - Run locally with `npm run dev`; verify the production build with `npm run build && npm run preview`.
 - Demo entry: `/?demo=1`. The normal app is `/`; legal pages are `/privacy/` and `/terms/`.
 - Deploy `dist/` as the static output. The included `staticwebapp.config.json` is the deployment policy; no application backend, infrastructure, DNS, or billing resource was changed.
 
 ## Known gaps
 
-None in the product repair. The static hosting platform must apply the checked-in `staticwebapp.config.json` during deployment for the CSP, cache, MIME, `/demo`, and 404 policies to become live; those headers cannot be observed from Vite preview.
+None.

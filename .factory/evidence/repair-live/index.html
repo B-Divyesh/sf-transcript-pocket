@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#dceff0" />
+    <meta name="description" content="Read local podcast audio with timed captions, large text, and saved listening positions." />
+    <link rel="canonical" href="https://transcript-pocket.sociobot.in/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Transcript Pocket — read local podcast captions" />
+    <meta property="og:description" content="Read local podcast audio with timed captions, large text, and saved listening positions." />
+    <meta property="og:image" content="https://transcript-pocket.sociobot.in/assets/transcript-pocket-social.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Transcript Pocket — read local podcast captions" />
+    <meta name="twitter:description" content="Read local podcast audio with timed captions, large text, and saved listening positions." />
+    <meta name="twitter:image" content="https://transcript-pocket.sociobot.in/assets/transcript-pocket-social.webp" />
+    <link rel="preload" href="/assets/atkinson-hyperlegible-next-latin-wght-normal-BcXVPD7q.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/assets/ibm-plex-mono-latin-700-normal-7sUh57Bg.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="manifest" href="/manifest.json" />
+    <link rel="icon" href="/icon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <title>Transcript Pocket — local audio with synchronized captions</title>
+    <script type="module" crossorigin src="/assets/app-jxTsUZJv.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/styles-IcqXqSoa.css">
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to player</a>
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label="Transcript Pocket home">
+        <svg aria-hidden="true" viewBox="0 0 32 32"><path d="M6 4h17l4 4v20H6zM23 4v5h4M10 14h13M10 19h9M10 24h11" /></svg>
+        <span>Transcript Pocket</span>
+      </a>
+      <nav class="header-actions" aria-label="Site navigation">
+        <span id="network-status" class="status-pill" role="status">Local by design</span>
+        <a class="text-link" href="/?demo=1">Demo</a>
+        <a class="text-link" href="#pocket-plus">Pocket Plus</a>
+        <a class="text-link legal-nav" href="/privacy/">Privacy</a>
+      </nav>
+    </header>
+
+    <main id="main">
+      <section id="loader" class="loader-section" aria-labelledby="loader-title">
+        <div class="intro-copy">
+          <p class="eyebrow">Sheet 01 · local listening plan</p>
+          <h1 id="loader-title">Read podcasts alongside every spoken phrase.</h1>
+          <p class="lede">For Deaf and hard-of-hearing podcast listeners, pair audio you own with timed captions and keep your place.</p>
+          <div class="first-actions">
+            <button id="try-demo" class="primary-button" type="button">Try it with sample data</button>
+            <a class="secondary-button" href="#file-form">Choose your own files</a>
+          </div>
+          <p class="action-detail">The sample opens a short listening sheet. It never mixes with your files.</p>
+          <ul class="plain-facts" aria-label="Product facts">
+            <li>Files stay in this browser.</li>
+            <li>Saved sheets reopen offline.</li>
+            <li>Core reading tools are free.</li>
+          </ul>
+          <div class="local-note">
+            <svg aria-hidden="true" viewBox="0 0 24 24"><path d="M7 10V8a5 5 0 0 1 10 0v2M5 10h14v11H5zM12 14v3" /></svg>
+            <p><strong>Your files stay on this device.</strong><br />No upload, transcription, or tracking.</p>
+          </div>
+        </div>
+        <picture class="hero-art">
+          <source media="(max-width: 640px)" srcset="/assets/transcript-pocket-hero-mobile.webp" />
+          <img src="/assets/transcript-pocket-hero.webp" width="1280" height="854" alt="Exploded technical drawing of an audio player, waveform, and caption sheets aligned on a coral time ruler" decoding="async" fetchpriority="high" />
+        </picture>
+        <form id="file-form" class="file-plan">
+          <label class="file-well" for="audio-file">
+            <span class="well-number">01</span>
+            <span><strong>Choose your audio</strong><small>MP3, M4A, WAV, OGG, or AAC</small></span>
+            <span class="file-action">Browse</span>
+            <input id="audio-file" name="audio" type="file" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg" required />
+          </label>
+          <label class="file-well" for="transcript-file">
+            <span class="well-number">02</span>
+            <span><strong>Add timed captions</strong><small>WebVTT (.vtt) or SubRip (.srt)</small></span>
+            <span class="file-action">Browse</span>
+            <input id="transcript-file" name="transcript" type="file" accept=".vtt,.srt,text/vtt,application/x-subrip" required />
+          </label>
+          <label class="remember-choice"><input id="remember-episode" type="checkbox" checked /> Keep this episode available offline on this device</label>
+          <button id="open-player" class="primary-button" type="submit">Open listening sheet <span aria-hidden="true">→</span></button>
+          <p id="file-error" class="form-message error" role="alert"></p>
+          <p id="restore-status" class="form-message" role="status">Checking this device for a saved listening sheet…</p>
+        </form>
+      </section>
+
+      <section id="workspace" class="workspace" aria-labelledby="episode-title" hidden>
+        <aside id="demo-banner" class="demo-banner" aria-label="Demo controls" hidden>
+          <p><strong>Demo — sample data, nothing is saved.</strong> Reset to the shipped sample or leave it before opening your own files.</p>
+          <div><button id="reset-demo" class="secondary-button" type="button">Reset demo</button><button id="start-real" class="primary-button" type="button">Start for real</button></div>
+        </aside>
+        <div class="sheet-heading">
+          <div>
+            <p class="eyebrow">Active listening sheet</p>
+            <h2 id="episode-title" tabindex="-1">Untitled audio</h2>
+            <p id="transcript-meta" class="muted"></p>
+          </div>
+          <button id="change-files" class="secondary-button" type="button">Change files</button>
+        </div>
+
+        <section class="transport" aria-label="Audio player">
+          <audio id="audio-player" controls preload="metadata"></audio>
+          <div class="transport-tools">
+            <button id="back-button" class="icon-button" type="button" aria-label="Go back 10 seconds">−10</button>
+            <output id="time-readout" for="audio-player">0:00 / 0:00</output>
+            <button id="forward-button" class="icon-button" type="button" aria-label="Go forward 10 seconds">+10</button>
+            <label for="speed-select">Speed</label>
+            <select id="speed-select">
+              <option value="0.75">0.75×</option>
+              <option value="1" selected>1×</option>
+              <option value="1.25">1.25×</option>
+              <option value="1.5">1.5×</option>
+              <option value="2">2×</option>
+            </select>
+            <button id="bookmark-button" class="bookmark-button" type="button">＋ Bookmark here</button>
+          </div>
+        </section>
+
+        <div class="workspace-grid">
+          <section class="transcript-panel" aria-labelledby="transcript-title">
+            <div class="transcript-toolbar">
+              <div>
+                <p class="eyebrow">Time-aligned transcript</p>
+                <h2 id="transcript-title">Reading rail</h2>
+              </div>
+              <div class="text-size" role="group" aria-label="Transcript text size">
+                <button id="text-smaller" type="button" aria-label="Make transcript text smaller">A−</button>
+                <output id="text-size-value">20 px</output>
+                <button id="text-larger" type="button" aria-label="Make transcript text larger">A＋</button>
+              </div>
+            </div>
+            <label class="search-box" for="transcript-search">
+              <svg aria-hidden="true" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7" /><path d="m16 16 5 5" /></svg>
+              <span class="visually-hidden">Search transcript</span>
+              <input id="transcript-search" type="search" placeholder="Search every phrase" autocomplete="off" />
+              <output id="search-count">All phrases</output>
+            </label>
+            <div id="cue-list" class="cue-list" tabindex="-1" aria-label="Transcript phrases"></div>
+          </section>
+
+          <section class="notes-rail" aria-labelledby="bookmarks-title">
+            <div class="rail-ticks" aria-hidden="true"></div>
+            <p class="eyebrow">Field notes</p>
+            <h2 id="bookmarks-title">Bookmarks</h2>
+            <p class="muted">Mark a phrase now; return to it later.</p>
+            <ol id="bookmark-list" class="bookmark-list"></ol>
+            <p id="bookmark-empty" class="empty-note">No flags placed yet.</p>
+            <div class="data-actions">
+              <button id="export-position" class="secondary-button" type="button">Export position</button>
+              <label class="secondary-button file-button" for="import-position">Import position<input id="import-position" type="file" accept="application/json,.json" /></label>
+              <button id="remove-saved" class="secondary-button" type="button">Remove offline copy</button>
+            </div>
+            <p id="data-status" class="form-message" role="status"></p>
+            <details class="shortcut-note">
+              <summary>Keyboard map</summary>
+              <p><kbd>Space</kbd> play/pause · <kbd>←</kbd>/<kbd>→</kbd> 5 seconds · <kbd>B</kbd> bookmark</p>
+            </details>
+          </section>
+        </div>
+      </section>
+
+      <section id="pocket-plus" class="plus-section" aria-labelledby="plus-title">
+        <div>
+          <p class="eyebrow">Optional finish layer</p>
+          <h2 id="plus-title">Pocket Plus</h2>
+          <p>Choose your drafting-sheet appearance and support an independent, private player. Playback, large text, search, bookmarks, and data export are always free.</p>
+        </div>
+        <div class="license-card">
+          <p><strong>US$12 · one-time purchase</strong><br /><span class="muted">Use indefinitely. No subscription.</span></p>
+          <a id="buy-link" class="primary-button" href="https://api.sociobot.in/api/v1/products/transcript-pocket/checkout">Buy Pocket Plus</a>
+          <form id="license-form">
+            <label for="license-token">Have a license? Paste it here</label>
+            <div class="license-row"><input id="license-token" type="text" autocomplete="off" spellcheck="false" /><button class="secondary-button" type="submit">Verify license</button></div>
+          </form>
+          <p id="license-status" class="form-message" role="status"></p>
+          <fieldset id="theme-controls" disabled>
+            <legend>Sheet appearance</legend>
+            <label><input type="radio" name="theme" value="system" checked /> System</label>
+            <label><input type="radio" name="theme" value="light" /> Day sheet</label>
+            <label><input type="radio" name="theme" value="dark" /> Night sheet</label>
+          </fieldset>
+          <p class="fine-print">Sociobot/Dodo is the merchant of record and handles refunds. A refund revokes the license. <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a></p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Transcript Pocket displays your caption file. It does not certify its accuracy.</p>
+      <p><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/FONT-LICENSES.txt">Font licenses</a> · Original AI-generated blueprint illustration, 2026 · build 1.0.1.</p>
+    </footer>
+
+    <div id="toast" class="toast" role="status" hidden><span id="toast-text"></span><button id="toast-action" type="button" hidden>Update now</button></div>
+  </body>
+</html>

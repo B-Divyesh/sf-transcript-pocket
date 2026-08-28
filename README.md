@@ -50,6 +50,8 @@ VITE_BILLING_BASE_URL=https://pilot-api.sociobot.in npm run build
 
 The factory must register the `transcript-pocket` product slug before checkout is live. No provider product ID or secret is stored here.
 
+Atkinson Hyperlegible Next and IBM Plex Mono are bundled locally under the SIL Open Font License 1.1; the full notices ship at `/FONT-LICENSES.txt`.
+
 ## Privacy and storage
 
 Audio and transcript contents remain in the browser. There are no analytics, ads, runtime CDNs, remote fonts, or cloud library. The only optional external request is a once-daily Pocket Plus license check; checkout happens on the hosted Sociobot/Dodo page. See `/privacy/` and `/terms/` in the built app.

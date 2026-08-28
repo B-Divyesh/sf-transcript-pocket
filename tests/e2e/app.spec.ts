@@ -60,7 +60,7 @@ test('loads local files, searches, bookmarks, restores, and works offline', asyn
   await expect(page.locator('.bookmark-item')).toHaveCount(1);
   await expect(page.locator('#data-status')).toContainText('Bookmarked');
 
-  await page.waitForFunction(() => navigator.serviceWorker?.ready);
+  await page.evaluate(() => navigator.serviceWorker.ready.then(() => true));
   await page.reload();
   await expect(page.getByRole('heading', { name: 'field notes' })).toBeVisible();
   await expect(page.locator('.bookmark-item')).toHaveCount(1);

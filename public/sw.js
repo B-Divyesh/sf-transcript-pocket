@@ -14,6 +14,12 @@ self.addEventListener('install', (event) => {
     const html = await response.text();
     const builtAssets = [...html.matchAll(/(?:src|href)="(\/assets\/[^\"]+)"/g)].map((match) => match[1]);
     await cache.addAll([...new Set(builtAssets)]);
+    const stylesheets = builtAssets.filter((path) => path.endsWith('.css'));
+    for (const stylesheet of stylesheets) {
+      const css = await (await fetch(stylesheet)).text();
+      const fontAssets = [...css.matchAll(/url\(["']?(\/assets\/[^)"']+\.(?:woff2?|ttf))["']?\)/g)].map((match) => match[1]);
+      if (fontAssets.length) await cache.addAll([...new Set(fontAssets)]);
+    }
     await self.skipWaiting();
   })());
 });

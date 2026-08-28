@@ -25,8 +25,8 @@ The paper grid is CSS, so it remains crisp and costs no image bytes. Focus is a 
 
 ## Type and spacing
 
-- **Long-form transcript:** `Atkinson Hyperlegible Next`, self-hosted WOFF2 when available, falling back to Atkinson/Arial/system sans. Its distinct letterforms serve the audience.
-- **Controls and notation:** `IBM Plex Mono`, self-hosted WOFF2 when available, falling back to ui-monospace. Tabular timestamps feel like measurement labels.
+- **Long-form transcript:** `Atkinson Hyperlegible Next`, self-hosted variable WOFF2, falling back to Atkinson/Arial/system sans. Its distinct letterforms serve the audience.
+- **Controls and notation:** `IBM Plex Mono` 700, self-hosted WOFF2, falling back to ui-monospace. Tabular timestamps feel like measurement labels.
 - Scale: 14 / 16 / 18 / 24 / 34 / 48 px. Transcript defaults to 20 px at 1.65 leading and can scale to 30 px.
 - Spacing follows a 4 px base: 4, 8, 12, 16, 24, 32, 48, 64. Reading measure is capped at 72 characters.
 - Controls are at least 44×44 px and adjacent controls have at least 8 px separation.
@@ -57,3 +57,4 @@ One generated hero illustration clarifies the core job: a portable cassette-shap
 
 **Generated asset:** `public/assets/transcript-pocket-hero.webp`, generated 2026-08-28 with the Param Factory Azure image deployment via `/opt/fleet/lib/gen-image.sh`. Prompt is preserved in `assets/src/transcript-pocket-hero.prompt.json`; source PNG is retained in `assets/src/`. The image is original AI-generated work for this product. It is disclosed in the footer.
 
+Atkinson Hyperlegible Next and IBM Plex Mono are bundled locally under the SIL Open Font License 1.1; notices ship at `/FONT-LICENSES.txt`. No font or other runtime asset is fetched from a CDN.

@@ -10,7 +10,7 @@
 - Installable manifest with 192/512/maskable icons, versioned service-worker app-shell caching, dynamically precached hashed assets, offline fallback, and an in-app ready/update notice.
 - US$12 one-time Pocket Plus flow using the Sociobot hosted checkout and daily-cached license verification. Return tokens and pasted restore tokens use `sb_license:transcript-pocket`; the URL token is stripped immediately. The free experience is never blocked by verification.
 - Responsive blueprint drafting-sheet interface, light/dark system treatments, reduced-motion handling, 44 px targets, strong focus states, semantic structure, and original generated hero art.
-- Privacy and terms pages, expanded README, MIT license, and no analytics, runtime CDN, third-party script, or remote font.
+- Privacy and terms pages, expanded README, MIT license, bundled SIL OFL font notices, and no analytics, runtime CDN, third-party script, or remote font.
 
 ## Original art
 
@@ -34,8 +34,8 @@ Results on 2026-08-28:
 - `npm run test:e2e`: 2/2 Chromium journeys passed. This covers 390×844 rendering, local file pairing, search, bookmark creation, IndexedDB refresh recovery, `context.setOffline(true)`, offline reload, and privacy/terms routes.
 - Playwright axe integration: 0 serious or critical violations on the first-use screen.
 - `/opt/fleet/lib/verify-url.sh`: HTTP 200, 540 ms local load, no console/page errors, `lang=en`, one `<h1>`, `<main>` present, 0 images missing alt, and 0 unlabeled buttons.
-- Lighthouse 12.8.2 mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 92; FCP 0.9 s, LCP 1.4 s, TBT 0 ms, CLS 0.
-- Production bundles: initial JS 16.58 KB raw / 6.52 KB gzip; CSS 15.05 KB raw / 4.18 KB gzip. No font payload. Both are comfortably inside the 200 KB JS and 50 KB CSS budgets.
+- Lighthouse 12.8.2 mobile: Performance 100, Accessibility 100, Best Practices 100, SEO 92; FCP 0.9 s, LCP 1.5 s, TBT 0 ms, CLS 0.
+- Production bundles: initial JS 16.58 KB raw / 6.52 KB gzip; CSS 15.68 KB raw / 4.45 KB gzip. The browser loads 48.91 KB of Latin WOFF2 fonts (60.66 KB including the legacy fallback file). All are comfortably inside the 200 KB JS, 50 KB CSS, and 120 KB font budgets.
 - `npm audit`: 0 vulnerabilities.
 - Visual inspection completed at 1440×1000 and 390×844 for empty and loaded-player states.
 

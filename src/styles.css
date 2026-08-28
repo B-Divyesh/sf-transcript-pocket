@@ -1,3 +1,14 @@
+@import "@fontsource/ibm-plex-mono/latin-700.css";
+
+@font-face {
+  font-family: "Atkinson Hyperlegible Next Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 200 800;
+  src: url("@fontsource-variable/atkinson-hyperlegible-next/files/atkinson-hyperlegible-next-latin-wght-normal.woff2") format("woff2-variations");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
 :root {
   color-scheme: light dark;
   --paper: #dceff0;
@@ -16,7 +27,7 @@
   --danger: #a42424;
   --shadow: 0 18px 46px rgba(16, 47, 58, 0.11);
   --transcript-size: 20px;
-  --font-reading: "Atkinson Hyperlegible Next", "Atkinson Hyperlegible", Arial, sans-serif;
+  --font-reading: "Atkinson Hyperlegible Next Variable", "Atkinson Hyperlegible", Arial, sans-serif;
   --font-mono: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
 }
 

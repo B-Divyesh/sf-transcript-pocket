@@ -1,0 +1,12 @@
+{
+  "slug": "transcript-pocket",
+  "title": "Transcript Pocket",
+  "territory": "utilities",
+  "user": "Deaf and hard-of-hearing podcast listeners who need a readable, synchronized transcript alongside audio files they already own.",
+  "current_workaround": "Read an unsynchronized web transcript, use a video workaround with a static image, or avoid the episode.",
+  "smallest_useful_product": "An offline audio player that pairs a local MP3/M4A with VTT/SRT, follows and highlights the current phrase, supports large text/search/bookmarks, and exports a reading position.",
+  "non_goals": ["podcast-directory scraping", "transcription", "cloud sync", "hosting copyrighted audio"],
+  "artifact_class": "pwa-offline",
+  "monetization": "one-time",
+  "constraints": "Keep media local; robustly support common sidecar encodings and timestamps; do not imply a transcript is verbatim or provide medical accessibility certification."
+}

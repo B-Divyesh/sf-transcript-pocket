@@ -57,6 +57,7 @@ test('loads local files, searches, bookmarks, restores, and works offline', asyn
   await page.locator('#transcript-file').setInputFiles({ name: 'field-notes.vtt', mimeType: 'text/vtt', buffer: Buffer.from(vtt) });
   await page.getByRole('button', { name: /Open listening sheet/i }).click();
   await expect(page.getByRole('heading', { name: 'field notes' })).toBeVisible();
+  await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('.cue')).toHaveCount(3);
 
   await page.getByRole('searchbox', { name: 'Search transcript' }).fill('searchable');
@@ -86,6 +87,7 @@ test('@claim:sample-demo opens a seeded listening sheet without touching real st
   await page.getByRole('button', { name: 'Try it with sample data' }).click();
   await expect(page.getByText('Demo — sample data, nothing is saved.')).toBeVisible();
   await expect(page.getByRole('heading', { name: 'city notes sample' })).toBeVisible();
+  await expect(page.locator('h1')).toHaveCount(1);
   await expect(page.locator('.cue')).toHaveCount(3);
   const databases = await page.evaluate(async () => (await indexedDB.databases()).map((database) => database.name));
   expect(databases).toContain('demo:transcript-pocket');

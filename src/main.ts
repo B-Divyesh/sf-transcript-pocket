@@ -11,6 +11,7 @@ const byId = <T extends HTMLElement>(id: string): T => {
 };
 
 const loader = byId<HTMLElement>('loader');
+let loaderTitle = byId<HTMLElement>('loader-title');
 const workspace = byId<HTMLElement>('workspace');
 const fileForm = byId<HTMLFormElement>('file-form');
 const audioInput = byId<HTMLInputElement>('audio-file');
@@ -128,6 +129,7 @@ function openWorkspace(next: SavedEpisode, announce: string): void {
   activeCue = -1;
   loader.hidden = true;
   workspace.hidden = false;
+  loaderTitle = setHeadingLevel(loaderTitle, 'h2');
   episodeTitle = setHeadingLevel(episodeTitle, 'h1');
   demoBanner.hidden = !demoMode;
   episodeTitle.textContent = cleanEpisodeName(next.audioName);
@@ -278,6 +280,7 @@ byId<HTMLButtonElement>('change-files').addEventListener('click', () => {
   audio.pause();
   workspace.hidden = true;
   episodeTitle = setHeadingLevel(episodeTitle, 'h2');
+  loaderTitle = setHeadingLevel(loaderTitle, 'h1');
   loader.hidden = false;
   loader.scrollIntoView({ behavior: reducedMotion() ? 'auto' : 'smooth' });
 });

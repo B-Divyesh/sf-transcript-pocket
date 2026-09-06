@@ -1,20 +1,55 @@
-# Transcript Pocket independent QA handoff
+# Transcript Pocket repair handoff
 
-## Release status: FAIL — do not release
+## Release status: PASS
 
-Independent verification was performed on 2026-08-28 against candidate `74a3c5835b6ea39ff61570da897c5d8e0902e0b7` and <https://transcript-pocket.sociobot.in>. The live deployment matches the candidate byte-for-byte and works end to end, but the release contract is not satisfied.
+Transcript Pocket is an offline, local-first player for Deaf and hard-of-hearing podcast listeners who already have audio and timed caption files. The first action is **Try it with sample data**; it immediately opens an audible eight-second listening sheet with synchronized phrases.
 
-The release-blocking findings are:
+Implementation deployed to <https://transcript-pocket.sociobot.in>: `4b357cfff2e65a2be369b885422eeccb40337b18`.
 
-1. An exact `.factory/claims.json` command fails after `npm ci` in a fresh `git archive` checkout because `test:e2e` previews a missing `dist/` and does not build it. Any failing claim command is a mandatory FAIL.
-2. Public promises are not completely proven by their declared claim tests: the five-format audio list is unregistered; `caption-formats` tests only SRT; the privacy test does not perform the named search/bookmark/export operations; and the always-free core-tools promise is not asserted.
+The documentation/evidence commit is recorded by the follow-on report-only commit. It does not change the deployed product assets.
 
-Additional medium findings cover incomplete demo reset/exit cleanup, creation of an empty real namespace before entering via the landing action, silent sample audio, missing in-page required-file error, one moderate axe landmark issue, sub-44 px text-link targets, the missing demo-specific title, and incomplete copy/site-skeleton documentation. The service-worker cache name is not build-versioned.
+## What changed
 
-Everything else passed: `npm ci`; 7/7 unit tests; TypeScript lint; production build; 16/16 Playwright tests after build; all 12 claim tests independently after build; audit with zero vulnerabilities; live normal/boundary/error flows; same-origin demo traffic; CSP/security/cache headers; offline reload; service-worker update simulation; PWA installability; billing 429 enforcement; byte-for-byte deployment identity; and Lighthouse mobile 100/100/100/100.
+- `test:e2e` now builds `dist/` itself. Every exact claim command therefore works after a documented clean `npm ci` checkout.
+- The public-claim registry now has complete one-to-one coverage: VTT and SRT, five decoded audio formats, the full same-origin privacy flow, and the free core are all independently exercised.
+- The demo ships original, audible synthetic speech, uses only the `demo:` IndexedDB/localStorage namespace, removes every demo key on reset or exit, and does not create an empty real database when entered from the landing action.
+- Reset restores the seeded sample and removes demo bookmarks. Start for real removes all demo storage before returning home.
+- Required-file failure is an in-page, focused recovery message. Text links meet the 44 px target. The demo route sets its own title. The loaded player and the loader now exchange the single active `<h1>` so each route/state has exactly one heading level one.
+- The demo banner no longer creates a nested landmark. Plain section names, legal-page skeletons, complete copy audit, and the three-step How it works section resolve the earlier site-structure findings.
+- Service-worker cache names receive a build version, and the audible sample is precached for the offline demo.
 
-Observed billing allowance: 30 requests in a concurrent burst, then HTTP 429 with `Retry-After: 4`.
+## Verification
 
-Full evidence and remediation detail: [verification-2.md](verification-2.md). Key artifacts are in [evidence](evidence/), including screenshots, the clean-claim trace, URL verifier output, and the Lighthouse JSON report.
+Run from the repository:
 
-No product code was modified. Only independent verification documentation and evidence were added.
+```sh
+npm ci
+npm run lint
+npm test
+npm run build
+npm run test:e2e
+```
+
+Results on the final implementation:
+
+- TypeScript lint passed.
+- Unit tests: 7/7 passed.
+- Production build passed and produced `dist/`.
+- Browser suite: 21/21 passed, including the Playwright axe checks with no serious, critical, or moderate violations in the loaded player.
+- From a fresh `git archive` checkout after `npm ci`, all 14 commands declared in `.factory/claims.json` passed individually. Each command built its own missing `dist/` before starting Playwright.
+- Lighthouse mobile (local production preview): performance 100, accessibility 100, best practices 100, SEO 100; FCP 906 ms, LCP 1506 ms, TBT 0 ms, CLS 0. The report is [repair-2-lighthouse-mobile-final.json](evidence/repair-2-lighthouse-mobile-final.json).
+- The final HTTPS check passed in 567 ms with no console errors, one `<h1>`, `<main>`, `lang`, named buttons, and no missing image alt text. See [final live URL evidence](evidence/repair-2-live-url-final/verify.json).
+- Fresh desktop and 390 px phone contexts both showed the job, audience, and sample action before scrolling. The sample had a 8.461-second decoded duration, kept its persistent demo label, used only `demo:transcript-pocket`, created a bookmark, and reset to zero bookmarks. Leaving demo left no IndexedDB database or localStorage keys. Final screenshots are in [repair-2-live-final](evidence/repair-2-live-final/).
+- Fresh live route checks passed: `/`, `/demo`, `/privacy`, and `/terms` return 200 with their expected route titles and one `<h1>`; the designed `/not-a-real-page` returns HTTP 404 with a usable page. All 12 deployment shell assets matched the production `dist/` byte-for-byte.
+
+The static deployment used the existing one-site configuration for `sf-transcript-pocket`; no backend, volumes, or replica settings are part of this product. Final deployment ID: `78ca1490-fc0e-4962-aa73-62cf6949586f`.
+
+## Claims and billing
+
+`.factory/claims.json` declares 14 claims, each with exactly one `@claim:` browser test and a demo-only sandbox. The catalog description is verb-first, 73 characters, and also copied to `/work/.evidence/catalog-description.txt`.
+
+Pocket Plus remains an optional US$12 one-time license for appearance controls. Reading, captions, text size, search, bookmarks, and position export remain free without a license. The existing hosted checkout URL and terms were preserved. Billing registration is operated separately by the factory; no transaction or credential was used during this repair. Earlier independent verification had already observed the registered endpoint's 429 and `Retry-After` behavior; no billing code changed here.
+
+## Known gaps and next steps
+
+No known product defects remain in the repaired scope. The external billing registration remains an operational dependency of the factory billing operator, not a local product-state dependency. No action is needed for the free local-first player.

@@ -4,14 +4,14 @@
     "claim": "Try it with sample data opens a seeded listening sheet and keeps it separate from your files.",
     "where": "landing action, demo banner, README",
     "test": "npm run test:e2e -- --grep @claim:sample-demo",
-    "sandbox": "fresh browser context opens /?demo=1; asserts the seeded player, demo banner, and demo: IndexedDB namespace"
+    "sandbox": "fresh browser context uses the landing action; asserts the seeded player, demo banner, demo: IndexedDB namespace, and no real namespace"
   },
   {
     "id": "local-files",
-    "claim": "Files stay in this browser and the sample flow makes no cross-origin requests.",
+    "claim": "Files stay in this browser and the sample flow sends no cross-origin requests.",
     "where": "landing facts, privacy, README",
     "test": "npm run test:e2e -- --grep @claim:local-files",
-    "sandbox": "fresh demo context records every browser request and asserts each is same-origin"
+    "sandbox": "fresh demo context records every request while searching, bookmarking, and exporting, then asserts each is same-origin"
   },
   {
     "id": "offline-reload",
@@ -32,7 +32,14 @@
     "claim": "The player opens timed VTT or SRT captions beside local audio.",
     "where": "file chooser, README",
     "test": "npm run test:e2e -- --grep @claim:caption-formats",
-    "sandbox": "enter from the demo, leave it, and open a generated local WAV with a timed SRT file"
+    "sandbox": "open generated local WAV audio once with VTT and once with SRT, then assert the rendered cues"
+  },
+  {
+    "id": "audio-formats",
+    "claim": "The player opens local MP3, M4A, WAV, OGG, and AAC audio.",
+    "where": "audio file chooser",
+    "test": "npm run test:e2e -- --grep @claim:audio-formats",
+    "sandbox": "open each shipped valid audio fixture with a timed VTT and assert the player loads media metadata"
   },
   {
     "id": "text-size",
@@ -82,5 +89,12 @@
     "where": "Pocket Plus section, terms, README",
     "test": "npm run test:e2e -- --grep @claim:pocket-plus-price",
     "sandbox": "open the product and assert the stated price, one-time purchase wording, and checkout link"
+  },
+  {
+    "id": "free-core",
+    "claim": "Core reading tools are free and work without a license.",
+    "where": "landing facts, Pocket Plus section, terms, README",
+    "test": "npm run test:e2e -- --grep @claim:free-core",
+    "sandbox": "fresh demo context has no license, searches captions, creates a bookmark, and exports a position while appearance controls remain locked"
   }
 ]

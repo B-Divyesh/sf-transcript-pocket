@@ -39,7 +39,7 @@
     <main id="main">
       <section id="loader" class="loader-section" aria-labelledby="loader-title">
         <div class="intro-copy">
-          <p class="eyebrow">Sheet 01 · local listening plan</p>
+          <p class="eyebrow">Local audio and timed captions</p>
           <h1 id="loader-title">Read podcasts alongside every spoken phrase.</h1>
           <p class="lede">For Deaf and hard-of-hearing podcast listeners, pair audio you own with timed captions and keep your place.</p>
           <div class="first-actions">
@@ -61,14 +61,14 @@
           <source media="(max-width: 640px)" srcset="/assets/transcript-pocket-hero-mobile.webp" />
           <img src="/assets/transcript-pocket-hero.webp" width="1280" height="854" alt="Exploded technical drawing of an audio player, waveform, and caption sheets aligned on a coral time ruler" decoding="async" fetchpriority="high" />
         </picture>
-        <form id="file-form" class="file-plan">
-          <label class="file-well" for="audio-file">
+        <form id="file-form" class="file-plan" novalidate>
+          <label id="audio-well" class="file-well" for="audio-file" tabindex="-1">
             <span class="well-number">01</span>
             <span><strong>Choose your audio</strong><small>MP3, M4A, WAV, OGG, or AAC</small></span>
             <span class="file-action">Browse</span>
             <input id="audio-file" name="audio" type="file" accept="audio/*,.mp3,.m4a,.aac,.wav,.ogg" required />
           </label>
-          <label class="file-well" for="transcript-file">
+          <label id="transcript-well" class="file-well" for="transcript-file" tabindex="-1">
             <span class="well-number">02</span>
             <span><strong>Add timed captions</strong><small>WebVTT (.vtt) or SubRip (.srt)</small></span>
             <span class="file-action">Browse</span>
@@ -81,14 +81,24 @@
         </form>
       </section>
 
+      <section class="how-it-works" aria-labelledby="how-it-works-title">
+        <p class="eyebrow">How it works</p>
+        <h2 id="how-it-works-title">Read local audio with timed captions</h2>
+        <ol>
+          <li><strong>Choose audio.</strong> Pick an audio file already on your device.</li>
+          <li><strong>Add captions.</strong> Select its timed VTT or SRT file.</li>
+          <li><strong>Read and return.</strong> Follow phrases, search, and save bookmarks.</li>
+        </ol>
+      </section>
+
       <section id="workspace" class="workspace" aria-labelledby="episode-title" hidden>
-        <aside id="demo-banner" class="demo-banner" aria-label="Demo controls" hidden>
+        <div id="demo-banner" class="demo-banner" role="status" hidden>
           <p><strong>Demo — sample data, nothing is saved.</strong> Reset to the shipped sample or leave it before opening your own files.</p>
           <div><button id="reset-demo" class="secondary-button" type="button">Reset demo</button><button id="start-real" class="primary-button" type="button">Start for real</button></div>
-        </aside>
+        </div>
         <div class="sheet-heading">
           <div>
-            <p class="eyebrow">Active listening sheet</p>
+            <p class="eyebrow">Open audio</p>
             <h2 id="episode-title" tabindex="-1">Untitled audio</h2>
             <p id="transcript-meta" class="muted"></p>
           </div>
@@ -118,7 +128,7 @@
             <div class="transcript-toolbar">
               <div>
                 <p class="eyebrow">Time-aligned transcript</p>
-                <h2 id="transcript-title">Reading rail</h2>
+                <h2 id="transcript-title">Transcript</h2>
               </div>
               <div class="text-size" role="group" aria-label="Transcript text size">
                 <button id="text-smaller" type="button" aria-label="Make transcript text smaller">A−</button>
@@ -137,7 +147,7 @@
 
           <section class="notes-rail" aria-labelledby="bookmarks-title">
             <div class="rail-ticks" aria-hidden="true"></div>
-            <p class="eyebrow">Field notes</p>
+            <p class="eyebrow">Saved places</p>
             <h2 id="bookmarks-title">Bookmarks</h2>
             <p class="muted">Mark a phrase now; return to it later.</p>
             <ol id="bookmark-list" class="bookmark-list"></ol>
@@ -158,12 +168,12 @@
 
       <section id="pocket-plus" class="plus-section" aria-labelledby="plus-title">
         <div>
-          <p class="eyebrow">Optional finish layer</p>
+          <p class="eyebrow">Optional appearance controls</p>
           <h2 id="plus-title">Pocket Plus</h2>
           <p>Choose your drafting-sheet appearance and support an independent, private player. Playback, large text, search, bookmarks, and data export are always free.</p>
         </div>
         <div class="license-card">
-          <p><strong>US$12 · one-time purchase</strong><br /><span class="muted">Use indefinitely. No subscription.</span></p>
+          <p><strong>US$12 · one-time purchase</strong><br /><span class="muted">No subscription.</span></p>
           <a id="buy-link" class="primary-button" href="https://api.sociobot.in/api/v1/products/transcript-pocket/checkout">Buy Pocket Plus</a>
           <form id="license-form">
             <label for="license-token">Have a license? Paste it here</label>
@@ -171,7 +181,7 @@
           </form>
           <p id="license-status" class="form-message" role="status"></p>
           <fieldset id="theme-controls" disabled>
-            <legend>Sheet appearance</legend>
+            <legend>Color theme</legend>
             <label><input type="radio" name="theme" value="system" checked /> System</label>
             <label><input type="radio" name="theme" value="light" /> Day sheet</label>
             <label><input type="radio" name="theme" value="dark" /> Night sheet</label>
@@ -183,7 +193,7 @@
 
     <footer>
       <p>Transcript Pocket displays your caption file. It does not certify its accuracy.</p>
-      <p><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/FONT-LICENSES.txt">Font licenses</a> · Original AI-generated blueprint illustration, 2026 · build 1.0.1.</p>
+      <p><a href="/privacy/">Privacy</a> · <a href="/terms/">Terms</a> · <a href="/FONT-LICENSES.txt">Font licenses</a> · Built by Param Factory · Original AI-generated blueprint illustration, 2026 · build 1.0.2.</p>
     </footer>
 
     <div id="toast" class="toast" role="status" hidden><span id="toast-text"></span><button id="toast-action" type="button" hidden>Update now</button></div>

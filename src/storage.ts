@@ -20,6 +20,16 @@ function databaseName(scope: StorageScope): string {
   return scope === 'demo' ? 'demo:transcript-pocket' : DATABASE;
 }
 
+async function databaseExists(scope: StorageScope): Promise<boolean> {
+  // Opening a missing IndexedDB database creates it. That is wrong for the
+  // empty first-use screen: taking the demo route must not leave an empty real
+  // namespace behind. Chromium and the other current target browsers expose
+  // this non-mutating inventory API.
+  if (typeof indexedDB.databases !== 'function') return true;
+  const names = await indexedDB.databases();
+  return names.some((database) => database.name === databaseName(scope));
+}
+
 function openDatabase(scope: StorageScope): Promise<IDBDatabase> {
   return new Promise((resolve, reject) => {
     const request = indexedDB.open(databaseName(scope), 1);
@@ -48,9 +58,22 @@ export function saveEpisode(episode: SavedEpisode, scope: StorageScope = 'real')
 }
 
 export function loadEpisode(scope: StorageScope = 'real'): Promise<SavedEpisode | undefined> {
-  return transact(scope, 'readonly', (store) => store.get('current'));
+  return databaseExists(scope).then((exists) => exists
+    ? transact(scope, 'readonly', (store) => store.get('current'))
+    : undefined
+  );
 }
 
 export function clearEpisode(scope: StorageScope = 'real'): Promise<undefined> {
   return transact(scope, 'readwrite', (store) => store.delete('current'));
+}
+
+export function deleteStorageScope(scope: StorageScope): Promise<void> {
+  const name = databaseName(scope);
+  return new Promise((resolve, reject) => {
+    const request = indexedDB.deleteDatabase(name);
+    request.onsuccess = () => resolve();
+    request.onblocked = () => reject(new Error('Close other Transcript Pocket tabs, then try again.'));
+    request.onerror = () => reject(request.error ?? new Error('Could not discard local storage.'));
+  });
 }

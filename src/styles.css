@@ -140,7 +140,7 @@ button { cursor: pointer; }
 .status-pill { padding: 6px 10px; border: 1px solid var(--rule); border-radius: 999px; color: var(--success); background: var(--surface); font: 700 0.75rem/1.2 var(--font-mono); }
 .status-pill::before { content: "●"; margin-right: 6px; }
 .status-pill.offline { color: var(--warning); }
-.text-link { display: inline-flex; align-items: center; min-height: 44px; font: 700 0.82rem var(--font-mono); }
+.text-link { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; font: 700 0.82rem var(--font-mono); }
 .wordmark { min-height: 44px; }
 
 main { width: min(1440px, 100%); margin: 0 auto; padding: 0 clamp(16px, 4vw, 64px); }
@@ -200,6 +200,13 @@ main { width: min(1440px, 100%); margin: 0 auto; padding: 0 clamp(16px, 4vw, 64p
 #open-player { min-width: 210px; }
 .form-message { min-height: 1.4em; margin: 4px 0 0; color: var(--muted); grid-column: 1 / -1; }
 .form-message.error { color: var(--danger); font-weight: 700; }
+
+.how-it-works { margin: 8px 0 72px; padding: clamp(28px, 4vw, 48px); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); }
+.how-it-works h2 { max-width: 18ch; margin-bottom: 28px; font-size: clamp(2rem, 5vw, 3.25rem); }
+.how-it-works ol { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; max-width: 1000px; margin: 0; padding: 0; list-style: none; counter-reset: steps; }
+.how-it-works li { min-height: 116px; padding: 18px 18px 18px 62px; border-left: 1px solid var(--blue); background: color-mix(in srgb, var(--surface) 92%, transparent); position: relative; }
+.how-it-works li::before { counter-increment: steps; content: "0" counter(steps); position: absolute; top: 18px; left: 18px; color: var(--accent); font: 700 0.75rem var(--font-mono); }
+.how-it-works strong { display: block; margin-bottom: 4px; }
 
 .workspace { padding: 48px 0 72px; }
 .demo-banner { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin: 0 0 24px; padding: 14px 16px; border: 1px solid var(--blue); background: var(--surface); box-shadow: 5px 5px 0 var(--rule-soft); }
@@ -268,10 +275,10 @@ fieldset label { display: flex; gap: 6px; align-items: center; min-height: 44px;
 fieldset input { width: 18px; height: 18px; accent-color: var(--blue); }
 fieldset:disabled { opacity: 0.56; }
 .fine-print { margin: 18px 0 0; color: var(--muted); font-size: 0.84rem; }
+.fine-print a, footer a { display: inline-flex; align-items: center; justify-content: center; min-width: 44px; min-height: 44px; }
 
 footer { display: flex; justify-content: space-between; gap: 24px; max-width: 1440px; margin: 0 auto; padding: 28px clamp(16px, 4vw, 64px); border-top: 1px solid var(--rule); color: var(--muted); font-size: 0.86rem; }
 footer p { margin: 0; }
-footer a { display: inline-flex; align-items: center; min-height: 44px; }
 .toast { position: fixed; z-index: 50; left: 50%; bottom: max(20px, env(safe-area-inset-bottom)); transform: translateX(-50%); display: flex; align-items: center; gap: 16px; width: min(92vw, 520px); padding: 14px 16px; color: var(--paper); background: var(--ink); border: 1px solid var(--rule); box-shadow: var(--shadow); }
 .toast button { margin-left: auto; padding: 6px 10px; border: 1px solid var(--paper); color: inherit; background: transparent; }
 
@@ -286,6 +293,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; }
   .file-plan { grid-template-columns: 1fr 1fr; margin-top: 0; }
   #open-player { grid-column: 1 / -1; }
   .workspace-grid { grid-template-columns: 1fr; }
+  .how-it-works ol { grid-template-columns: 1fr; }
   .notes-rail { position: static; }
   .plus-section { grid-template-columns: 1fr; }
   .license-card { padding: 24px 0 0; border-left: 0; border-top: 1px solid var(--rule); }
@@ -318,6 +326,7 @@ footer a { display: inline-flex; align-items: center; min-height: 44px; }
   .cue-list { max-height: 68vh; }
   .cue { grid-template-columns: 58px minmax(0, 1fr); gap: 8px; padding: 12px 14px; }
   .plus-section { margin-left: -14px; margin-right: -14px; padding: 28px 18px; }
+  .how-it-works { margin-left: -14px; margin-right: -14px; padding: 28px 18px; }
   .license-row { flex-direction: column; }
   footer { flex-direction: column; padding-bottom: max(28px, env(safe-area-inset-bottom)); }
   .demo-banner { align-items: flex-start; flex-direction: column; }

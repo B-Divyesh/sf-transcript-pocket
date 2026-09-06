@@ -2,7 +2,7 @@ import './styles.css';
 import { cueAtTime, decodeTranscript, formatTime, parseTranscript, readPositionFile, type Cue, type PositionFile } from './core';
 import { checkoutUrl, captureReturnedLicense, getLicense, optimisticallyUnlocked, storeLicense, verifyLicense } from './license';
 import { sampleEpisode } from './demo';
-import { clearEpisode, loadEpisode, saveEpisode, type SavedEpisode, type StorageScope } from './storage';
+import { clearEpisode, deleteStorageScope, loadEpisode, saveEpisode, type SavedEpisode, type StorageScope } from './storage';
 
 const byId = <T extends HTMLElement>(id: string): T => {
   const element = document.getElementById(id);
@@ -42,6 +42,8 @@ const startReal = byId<HTMLButtonElement>('start-real');
 
 const demoMode = new URL(location.href).searchParams.get('demo') === '1' || location.pathname.replace(/\/+$/, '') === '/demo';
 const storageScope: StorageScope = demoMode ? 'demo' : 'real';
+
+if (demoMode) document.title = 'Demo — Transcript Pocket';
 
 let episode: SavedEpisode | null = null;
 let audioUrl = '';
@@ -234,7 +236,7 @@ fileForm.addEventListener('submit', async (event) => {
   const transcriptFile = transcriptInput.files?.[0];
   if (!audioFile || !transcriptFile) {
     fileError.textContent = 'Choose both an audio file and its VTT or SRT transcript.';
-    (!audioFile ? audioInput : transcriptInput).focus();
+    byId<HTMLElement>(!audioFile ? 'audio-well' : 'transcript-well').focus();
     return;
   }
   if (!/\.(vtt|srt)$/i.test(transcriptFile.name)) {
@@ -395,15 +397,15 @@ byId<HTMLButtonElement>('remove-saved').addEventListener('click', async () => {
   }
 });
 
-function applyTranscriptSize(): void {
+function applyTranscriptSize(persist = true): void {
   transcriptSize = Math.min(30, Math.max(18, transcriptSize));
   document.documentElement.style.setProperty('--transcript-size', `${transcriptSize}px`);
   textSizeValue.textContent = `${transcriptSize} px`;
-  localStorage.setItem(`${demoMode ? 'demo:' : ''}tp:transcript-size`, String(transcriptSize));
+  if (persist) localStorage.setItem(`${demoMode ? 'demo:' : ''}tp:transcript-size`, String(transcriptSize));
 }
 byId<HTMLButtonElement>('text-smaller').addEventListener('click', () => { transcriptSize -= 2; applyTranscriptSize(); });
 byId<HTMLButtonElement>('text-larger').addEventListener('click', () => { transcriptSize += 2; applyTranscriptSize(); });
-applyTranscriptSize();
+applyTranscriptSize(false);
 
 document.addEventListener('keydown', (event) => {
   if (workspace.hidden || event.altKey || event.ctrlKey || event.metaKey) return;
@@ -506,10 +508,18 @@ async function restoreSavedEpisode(): Promise<void> {
 void restoreSavedEpisode();
 
 async function openDemo(): Promise<void> {
-  const next = sampleEpisode();
+  const next = await sampleEpisode();
   await saveEpisode(next, 'demo');
   rememberInput.checked = true;
   openWorkspace(next, 'Demo sample ready. Nothing here is saved with your files.');
+}
+
+async function discardDemoData(): Promise<void> {
+  await deleteStorageScope('demo');
+  for (let index = localStorage.length - 1; index >= 0; index -= 1) {
+    const key = localStorage.key(index);
+    if (key?.startsWith('demo:')) localStorage.removeItem(key);
+  }
 }
 
 tryDemo.addEventListener('click', () => {
@@ -517,13 +527,15 @@ tryDemo.addEventListener('click', () => {
 });
 
 resetDemo.addEventListener('click', async () => {
-  await clearEpisode('demo');
+  await discardDemoData();
+  transcriptSize = 20;
+  applyTranscriptSize(false);
   await openDemo();
   dataStatus.textContent = 'Demo reset to the sample listening sheet.';
 });
 
 startReal.addEventListener('click', async () => {
-  await clearEpisode('demo');
+  await discardDemoData();
   location.assign('/');
 });
 

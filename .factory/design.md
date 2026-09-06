@@ -60,3 +60,5 @@ One generated hero illustration clarifies the core job: a portable cassette-shap
 **Social derivative:** `public/assets/transcript-pocket-social.webp` is a deterministic 1200×630 center crop of that reviewed hero, made 2026-08-28 for Open Graph and Twitter cards. It introduces no new subject matter, text, or third-party asset.
 
 Atkinson Hyperlegible Next and IBM Plex Mono are bundled locally under the SIL Open Font License 1.1; notices ship at `/FONT-LICENSES.txt`. No font or other runtime asset is fetched from a CDN.
+
+**Demo audio:** `public/assets/city-notes-sample.mp3` is an original synthetic spoken reading of the shipped three-cue sample transcript. It was generated locally on 2026-09-06 with eSpeak NG 1.51 (`en-us`, rate 180, pitch 45), then encoded at 48 kbps with FFmpeg. It uses no recorded person, brand, or third-party audio and exists only to make the one-click transcript timing sample audible.

@@ -1,9 +1,9 @@
-const VERSION = 'tp-shell-v1';
+const VERSION = 'tp-shell-__BUILD_VERSION__';
 const SHELL = [
   '/', '/index.html', '/privacy/', '/terms/', '/offline.html',
   '/manifest.json', '/icon.svg', '/icons/icon-192.png', '/icons/icon-512.png',
   '/icons/icon-maskable-512.png', '/assets/transcript-pocket-hero.webp',
-  '/assets/transcript-pocket-hero-mobile.webp'
+  '/assets/transcript-pocket-hero-mobile.webp', '/assets/city-notes-sample.mp3'
 ];
 
 self.addEventListener('install', (event) => {

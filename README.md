@@ -15,7 +15,7 @@ Production URL: <https://transcript-pocket.sociobot.in>
 
 ## Try the demo
 
-Open [/?demo=1](https://transcript-pocket.sociobot.in/?demo=1), or choose **Try it with sample data** on the first screen. It opens a three-cue sample listening sheet in a separate `demo:transcript-pocket` database. The banner can reset the sample or discard it before you start with your own files. See [`.factory/demo.md`](.factory/demo.md) for the sandbox details.
+Open [/?demo=1](https://transcript-pocket.sociobot.in/?demo=1), or choose **Try it with sample data** on the first screen. It opens an audible three-cue sample listening sheet in a separate `demo:transcript-pocket` database. The banner can reset the sample or discard it before you start with your own files. See [`.factory/demo.md`](.factory/demo.md) for the sandbox details.
 
 This app does not transcribe, download, scrape, certify, or host media or transcripts.
 
@@ -39,7 +39,7 @@ npm run build
 npm run test:e2e
 ```
 
-The exact production build command is `npm run build`. Static output is written to `./dist`, with `dist/index.html` at its root. The end-to-end suite uses Playwright 1.58.2 and starts `vite preview` automatically. It verifies the 390 px flow, axe accessibility, demo isolation, claim-tagged behavior, local file pairing, search, bookmarks, IndexedDB restoration, and offline reload.
+The exact production build command is `npm run build`. Static output is written to `./dist`, with `dist/index.html` at its root. `npm run test:e2e` builds before starting `vite preview`, so every declared claim command works from `npm ci` in a clean checkout. The end-to-end suite uses Playwright 1.58.2 and verifies the 390 px flow, axe accessibility, demo isolation, claim-tagged behavior, local file pairing, search, bookmarks, IndexedDB restoration, and offline reload.
 
 ## Deployment
 

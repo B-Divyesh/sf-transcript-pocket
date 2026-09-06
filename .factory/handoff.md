@@ -6,7 +6,7 @@ Transcript Pocket is an offline, local-first player for Deaf and hard-of-hearing
 
 Implementation deployed to <https://transcript-pocket.sociobot.in>: `4b357cfff2e65a2be369b885422eeccb40337b18`.
 
-The documentation/evidence commit is recorded by the follow-on report-only commit. It does not change the deployed product assets.
+Documentation/evidence base: `ba98705e8235f30ad88c72559585ef1ecdb7e22f`. The follow-on report-only commit records this reference and does not change the deployed product assets.
 
 ## What changed
 
